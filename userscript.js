@@ -3,7 +3,7 @@
 // @namespace   Violentmonkey Scripts
 // @match       *://sangtacviet.vip/truyen/*/*/*/*/
 // @grant       none
-// @version     1.0
+// @version     1.1
 // @author      Hexros Raymond
 // @description Đôi lúc chữ trong truyện sẽ bị mã hoá, khi đó userscript này phát huy tác dụng.
 // ==/UserScript==
@@ -66,16 +66,15 @@
 	};
 
 	function decodeString(str) {
-		return str
-			.split('')
-			.map((char) => {
-				decodeMap[char] || char;
-			})
-			.join('');
+		let text = '';
+		str.split('').forEach((char) => {
+			text += decodeMap[char] || char;
+		});
+		return text;
 	}
 
 	window.onload = function () {
-		setTimeout(() => {
+		setInterval(() => {
 			const iElements = document.querySelectorAll('i');
 			iElements.forEach((element) => {
 				const encodedText = element.textContent;
